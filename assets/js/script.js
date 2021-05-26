@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let button of buttons) {
         button.addEventListener("click", function(){
             if (this.getAttribute("data-type") == "submit"){
-            alert("You clicked submit!");
+                checkAnswer();
             } else {
                 let gameType = this.getAttribute("data-type");
                 runGame(gameType);
@@ -26,20 +26,35 @@ function runGame(gameType) {
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
 
-    if (gameType === "adition"){
+    if (gameType === "addition"){
         displayAdditionQuestion(num1, num2);
     } else {
+        // Using alert to alert user that there is an error
         alert(`Unknown game type ${gameType}`);
+        // Using throw to log this error in console 
         throw `Unknown game type ${gameType}, aborting!`;
     }
 
 }
 
 function checkAnswer() {
-
+    
 }
 
 function calculateCorrectAnswer() {
+    // Gets the opernads (numbers) and the operator (+, -, *, /)
+    // directly from DOM
+    // Using parseInt function to make sure we use ineger instead of default string
+    let operand1 = parseInt(document.getElementById("operand1").innerText);
+    let operand2 = parseInt(document.getElementById("operand2").innerText);
+    let operator = document.getElementById("operator").innerText;
+
+    if (operator === "+") {
+        return [operand1 + operand2, "addition"];
+    } else {
+        alert(`Unimplemented operator ${operator}`);
+        throw `Unimplemented operator ${operator}, aborting!`;
+    }
 
 }
 
@@ -51,8 +66,11 @@ function incrementWrongAnswer() {
 
 }
 
-function displayAdditionQuestion() {
-
+function displayAdditionQuestion(operand1, operand2) {
+    document.getElementById("operand1").textContent = operand1;
+    document.getElementById("operand2").textContent = operand2;
+    document.getElementById("operator").textContent = "+";
+    
 }
 
 function displaySubtractQuestion() {
