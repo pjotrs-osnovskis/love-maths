@@ -15,6 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
         })
     }
 
+    // Here event listener is listenong for Enter key instead of pressin 
+    // submit button all the time.
+    document.getElementById("answer-box").addEventListener("keydown", function(event) {
+        if (event.key === "Enter"){
+            checkAnswer();
+        }
+    });
+
     runGame("addition");
 });
 
@@ -22,6 +30,13 @@ function runGame(gameType) {
     // Generate two random numbers between 1 and 25
     // Math.floor rounds down to the whole number
     // Math.random generates random numbers
+
+    // This line clears "answer-box" after calling this function
+    document.getElementById("answer-box").value = "";
+
+    // Here we focus on the "answer-box" so cursor is in the
+    // answer box field for convinience after calling runGame function.
+    document.getElementById("answer-box").focus();
 
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
@@ -101,6 +116,9 @@ function displayAdditionQuestion(operand1, operand2) {
     document.getElementById("operator").textContent = "+";
     
 }
+
+    // A little different approach so first number is bigger than
+    // second, do we dont have negative results
 
 function displaySubtractQuestion(operand1, operand2) {
     document.getElementById("operand1").textContent = operand1 > operand2 ? operand1 :
